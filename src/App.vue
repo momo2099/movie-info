@@ -5,14 +5,14 @@
   :data="data"
   @increaseLike="increaseLike($event)"
   @openModal="isModal=true; selectedMovie=$event"
-  />  
+  />
+  <!-- The event name (custom event) triggered in the child component is prefixed with @ -->  
   <Modal 
   :data="data" 
   :isModal="isModal" 
   :selectedMovie="selectedMovie"
   @closeModal="isModal=false"
   />
-  /><!-- The event name (custom event) triggered in the child component is prefixed with @ -->
 
 </template>
 
@@ -32,7 +32,7 @@ export default {
       isModal: false,
       data: data,
       selectedMovie: 0,
-      text: "NETFLIX",
+      text: "HBO MAX",
     }
   },
   methods: {
