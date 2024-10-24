@@ -1,6 +1,5 @@
 const data= [
     {
-
       title: "슈퍼맨 레거시",
       year: 2023,
       category: "액션, 드라마",

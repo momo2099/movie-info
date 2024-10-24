@@ -12,19 +12,19 @@
   :selectedMovie="selectedMovie"
   @closeModal="isModal=false"
   />
-  <!-- 자식 컴포넌트에서 발생한 이벤트명은 앞에 @추가 -->
+  /><!-- The event name (custom event) triggered in the child component is prefixed with @ -->
 
 </template>
 
 <script>
-//2.본체에서 import
+// import the component wnat to bring in
 import data from './assets/movies';
 import Navbar from './components/Navbar.vue';
 import Event from './components/Event.vue'; //이벤트 박스
 import Modal from './components/Modal.vue';
-import Movies from './components/movies.vue'
+import Movies from './components/Movies.vue'
 console.log(data);
-
+ 
 export default {
   name: 'App',
   data() {
@@ -40,8 +40,8 @@ export default {
       this.data[i].like += 1;
     }
   },
-  // 3.components 항목에 변수 등록
-  components: {
+    // Register the variable in the components section
+    components: {
     Navbar: Navbar,
     Event: Event,
     Modal: Modal,

@@ -3,7 +3,7 @@
         <h1>영화정보</h1>
         <div v-for="(movie, i) in data" :key="i" class="item">
             <figure>
-                <img :src="`${movie.imgUrl}`" :alt="`${movie.title}`">
+                <img :src="movie.imgUrl" :alt="movie.title">
             </figure>
 
             <div class="info">
@@ -22,7 +22,6 @@
 <script>
 export default {
     name: "MoviesComponent",
-    
     //부모 -> 자식
     props: {
         data: Array,
