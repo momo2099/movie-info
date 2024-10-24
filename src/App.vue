@@ -1,18 +1,13 @@
 <template>
   <Navbar />
-  <Event :text="text" />
-  <Movies 
-  :data="data"
-  @increaseLike="increaseLike($event)"
-  @openModal="isModal=true; selectedMovie=$event"
-  />
-  <!-- The event name (custom event) triggered in the child component is prefixed with @ -->  
-  <Modal 
-  :data="data" 
-  :isModal="isModal" 
-  :selectedMovie="selectedMovie"
-  @closeModal="isModal=false"
-  />
+  <Event :text="text[eventTextNum]" />
+  <Searchbar :data="data_temp" @searchMovie="searchMovie($event)"/>
+  <p>
+    <button @click="showAllMovie">전체보기</button>
+  </p>
+  <Movies :data="data_temp" @increaseLike="increaseLike($event)" @openModal="isModal = true; selectedMovie = $event" />
+  <!-- The event name (custom event) triggered in the child component is prefixed with @ -->
+  <Modal :data="data" :isModal="isModal" :selectedMovie="selectedMovie" @closeModal="isModal = false" />
 
 </template>
 
@@ -20,33 +15,72 @@
 // import the component wnat to bring in
 import data from './assets/movies';
 import Navbar from './components/Navbar.vue';
-import Event from './components/Event.vue'; //이벤트 박스
+import Event from './components/Event.vue'; // event box
 import Modal from './components/Modal.vue';
-import Movies from './components/Movies.vue'
+import Movies from './components/Movies.vue';
+import Searchbar from './components/SearchBar.vue';//SearchBar
+
 console.log(data);
- 
+
 export default {
   name: 'App',
   data() {
     return {
       isModal: false,
-      data: data,
+      data: data, // Original
+      data_temp: [...data], // Copy
       selectedMovie: 0,
-      text: "HBO MAX",
+      text: [ 
+        'NETPLIX 강렬한 운명의 드라마, 경기크리처',
+        '디즈니 100주년 기념작, 위시',
+        '그날, 대한민국의 운명이 바뀌었다, 서울의 봄',
+      ],
+      eventTextNum:0,
+      interval:null,
     }
   },
   methods: {
-    increaseLike(i) {
-      this.data[i].like += 1;
+    increaseLike(id) {
+      this.data.find(movie=>{
+        if(movie.id==id){
+          movie.like+=1;
+        }
+      })
+    },
+
+  // Fetch data that includes the movie title
+    searchMovie(title){
+      this.data_temp=this.data.filter(movie=>{
+        return movie.title.includes(title);
+      })
+    },
+    showAllMovie(){
+      this.data_temp=[...this.data]
     }
   },
-    // Register the variable in the components section
-    components: {
+
+  // Register the variable in the components section
+  components: {
     Navbar: Navbar,
     Event: Event,
     Modal: Modal,
-    Movies:Movies,
+    Movies: Movies,
+    Searchbar: Searchbar
+  },
+  mounted(){
+    console.log('mounted');
+    this.interval=setInterval(() =>{
+      if(this.eventTextNum==this.text.length-1){
+        this.eventTextNum=0;
+      }else{
+        this.eventTextNum+=1;
+      }
+    },2000)
+  },
+  unmounted(){
+    clearInterval(this.interval); // clear interval
   }
+
 }
 </script>
 

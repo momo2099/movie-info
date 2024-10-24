@@ -1,5 +1,6 @@
 const data= [
     {
+      id:0,
       title: "슈퍼맨 레거시",
       year: 2023,
       category: "액션, 드라마",
@@ -7,6 +8,7 @@ const data= [
       imgUrl: './assets/레거시.jpg'
     },
     {
+      id:1,
       title: "아쿠아맨과 로스트킹덤",
       year: 2023,
       category: "액션, 판타지",
@@ -14,6 +16,7 @@ const data= [
       imgUrl: './assets/아쿠아맨.jpg'
     },
     {
+      id:2,
       title: "더 배트맨",
       year: 2023,
       category: "액션, 느와르",
